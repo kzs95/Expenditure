@@ -1,0 +1,187 @@
+* {
+    box-sizing: border-box;
+}
+
+/* * {
+    background: #000 !important;
+    color: #0f0 !important;
+    outline: solid #f00 1px !important;
+} */
+
+body {
+    font-family: 'Ink Free', Georgia, 'Times New Roman', Times, serif;
+    margin: 0px;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-auto-rows: auto;
+    grid-auto-flow: row;
+    gap: 1.5rem;
+    place-items: start center;
+}
+
+main>section {
+    width: min(600px, 98dvw);
+    margin-inline: auto;
+    margin-block: 1rem;
+    padding: .5rem;
+    border: 1px solid #008080;
+    /* box-shadow: 0 0 2px #1877F2; */
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: #2E8B57;
+    margin-block: .5rem;
+}
+
+h2 {
+    font-size: 1.3rem;
+    color: #008B8B;
+    margin-block: .5rem;
+}
+
+h3 {
+    font-size: 1.05rem;
+    color: #4682B4;
+    margin-block: .5rem;
+}
+
+p {
+    margin-block: .5rem;
+}
+
+hr {
+    margin-block: 1rem;
+}
+
+ul,
+ol {
+    margin-block: .5rem;
+    padding-inline-start: 2rem;
+}
+
+canvas {
+    margin-block: 1rem;
+}
+
+canvas.pie {
+    max-height: 350px;
+}
+
+table,
+td,
+th {
+    border: 1px solid #00693E;
+    border-collapse: collapse;
+}
+
+table.col2 {
+    width: min(300px, 100%)
+}
+
+table.col3 {
+    width: min(450px, 100%)
+}
+
+table.col4 {
+    width: 100%
+}
+
+table .col_day {
+    width: 12%;
+}
+
+table .col_categ {
+    width: 25%;
+}
+
+table .col_spent {
+    width: 23%;
+}
+
+table .col_comment {
+    width: 35%;
+}
+
+th,
+td {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    hyphens: auto;
+}
+
+td,
+th {
+    padding: .2rem;
+}
+
+thead {
+    background-color: #F5FFFA;
+    text-align: left;
+}
+
+form {
+    border: 1px solid #3CB371;
+    padding: .5rem;
+    max-width: 99%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: .25rem;
+    font-family: inherit;
+}
+
+form :is(input, textarea, select, option, button),
+form>::file-selector-button {
+    max-width: 100%;
+    font-family: inherit;
+}
+
+form>textarea {
+    align-self: stretch;
+    resize: none;
+    overflow: auto;
+}
+
+form>:is(input, textarea):focus-visible {
+    background-color: lavender;
+}
+
+form>:is(input, textarea):user-invalid {
+    background-color: #FFF0F5;
+}
+
+form>label:has(+:is(input, select, textarea):required)::after {
+    content: "\00a0 *";
+    color: #FF0000;
+}
+
+form input.show-password {
+    vertical-align: middle;
+}
+
+form small.form-info {
+    margin-block: .5rem;
+}
+
+ul.form-info-text {
+    margin: 0;
+    padding-inline-start: 25px;
+}
+
+input.delete-warning {
+    border: 2px solid #E34234;
+    background-color: #F88379;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.notification-text {
+    color: #CD5C5C;
+}
+
+.notification-text-success {
+    color: #018749;
+}

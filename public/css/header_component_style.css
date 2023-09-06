@@ -1,0 +1,29 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+}
+
+:host {
+    width: min(600px, 98dvw);
+}
+
+.page-navigator {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    gap: .5rem;
+}
+
+.page-navigator>h1 {
+    margin: 0;
+    font-size: clamp(1.2rem, 0.75rem + 2vw, 1.5rem);
+    color: #009E60;
+    flex: 1 1 auto;
+}
+
+.page-navigator>a>img {
+    flex: 0 0 30px;
+    width: 30px;
+    aspect-ratio: 1;
+}

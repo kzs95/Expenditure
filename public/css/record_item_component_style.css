@@ -1,0 +1,35 @@
+div:is(.container-legend, .item-wrapper) {
+    display: grid;
+    grid-template-columns: 25% 20% 25% 30%;
+    grid-template-rows: 1fr;
+    place-items: stretch;
+    margin-block: .25rem;
+}
+
+div.container-legend {
+    background-color: #F0FFF0;
+}
+
+div.container-legend>div[class|=col] {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+div.item-wrapper>div[class|=col] {
+    hyphens: auto;
+    overflow-wrap: break-word;
+}
+
+div.item-wrapper>div#action-button>button[id|=item] {
+    border: 0;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+div.item-wrapper>div#action-button>button#item-delete {
+    background-color: #CD5C5C;
+}
+
+div.item-wrapper>div#action-button>button#item-edit {
+    background-color: #ACE1AF;
+}

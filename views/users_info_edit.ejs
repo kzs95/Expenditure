@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>Edit User Info| Expenditure Recorder</title>
+    <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+    <link rel='stylesheet' href='/css/common.css' />
+    <script src="/js/header_component.js" defer type="module"></script>
+    <script src="/js/page_users_edit.js" defer type="module"></script>
+</head>
+
+<body>
+    <main>
+        <expendrec-header></expendrec-header>
+        <section id="edit-info-username">
+            <h1>Change Username</h1>
+            <form name="change_username" method="POST" action="/users/edit-details/change-username">
+                <label for="username_new">New Username</label>
+                <input type="text" name="username_new" id="username_new" pattern="^[\w!@#$%&*'\-]+$" minlength="6"
+                    maxlength="16" required>
+                <label for="username_change_password">Current Password</label>
+                <input type="password" name="password" id="username_change_password"
+                    pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%])[a-zA-Z!@#$%\d]*$" minlength="8" maxlength="12"
+                    required>
+                <input type="submit" value="Change Username">
+                <small>
+                    <ul class="form-info-text">
+                        <li><b>Username</b>: 6 to 16 Alphabet, Numbers, 9 Symbols ( _!@#$%&*'- )</li>
+                    </ul>
+                </small>
+            </form>
+        </section>
+        <section id="edit-info-email">
+            <h1>Change Email</h1>
+            <form name="change_email" method="POST" action="/users/edit-details/change-email">
+                <label for="email_new">New Email</label>
+                <input type="email" name="email_new" id="email_new" required>
+                <label for="email_change_password">Current Password</label>
+                <input type="password" name="password" id="email_change_password"
+                    pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%])[a-zA-Z!@#$%\d]*$" minlength="8" maxlength="12"
+                    required>
+                <input type="submit" value="Change Email">
+            </form>
+        </section>
+        <section id="edit-info-password">
+            <h1>Change Password</h1>
+            <form name="change_password" method="POST" action="/users/edit-details/change-password">
+                <label for="password_new">New Password</label>
+                <input type="password" name="password_new" id="password_new"
+                    pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%])[a-zA-Z!@#$%\d]*$" minlength="8" maxlength="12"
+                    required>
+                <label for="change_password_password">Current Password</label>
+                <input type="password" name="password" id="change_password_password"
+                    pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%])[a-zA-Z!@#$%\d]*$" minlength="8" maxlength="12"
+                    required>
+                <input type="submit" value="Change Password">
+                <small>
+                    <ul class="form-info-text">
+                        <li><b>Password</b>: 8 - 12 Alphabets, Numbers, 5 Symbols ( !@#$% ). At least one character PER
+                            TYPE.</li>
+                    </ul>
+                </small>
+            </form>
+        </section>
+        <div class="passwordShow">
+            <label for="show-password">Show Password</label>
+            <input type="checkbox" id="show-password" class="show-password">
+        </div>
+        <% if (notification) {%>
+            <% if (status==='Fail' ) {%>
+                <div class="notification-text">
+                    <p><b>
+                            <%= notification.title %>
+                        </b>: <%= notification.message %>
+                    </p>
+                </div>
+                <% } else if (status==='Success' ){%>
+                    <div class="notification-text-success">
+                        <p><b>
+                                <%= notification.title %>
+                            </b>: <%= notification.message %>
+                        </p>
+                    </div>
+                    <% } %>
+                        <% } %>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title>Expenditure Recorder</title>
+  <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+  <link rel='stylesheet' href='/css/common.css' />
+  <link rel='stylesheet' href='/css/index.css' />
+  <script src="/js/page_index.js" defer type="module"></script>
+  <script src="/js/header_component.js" defer type="module"></script>
+  <script src="/js/record_item_component.js" defer type="module"></script>
+</head>
+
+<body>
+  <main>
+    <expendrec-header></expendrec-header>
+    <section id="entry-form">
+      <h1>Enter Spendings</h1>
+      <form name="spending-entry">
+        <label for="day">Day</label>
+        <input type="date" id="day" name="day" required />
+        <label for="category">Category</label>
+        <select name="category" id="category" required>
+          <option value="">-Select a Category-</option>
+        </select>
+        <label for="spent">Spendings</label>
+        <input autocomplete="off" type="number" name="spent" id="spent" min="0.05" step="0.05" required>
+        <label for="comment">Details</label>
+        <textarea id="comment" name="comment" rows="3" maxlength="100" wrap="soft"
+          placeholder="Details regarding this item."></textarea>
+        <input type="submit" value="Add">
+        <small class="form-info"><b>Note</b>: Adding to a category that already have an entry will <b>OVERWRITE</b> the existing record! To copy exisitng values to edit before adding, click the <b>Edit</b> button.</small>
+      </form>
+    </section>
+    <section id="entry-review">
+      <h1>Spending Record</h1>
+      <div id="record-item-area"></div>
+    </section>
+  </main>
+
+</body>
+
+</html>

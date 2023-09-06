@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title><%= title %> | Expenditure Recorder</title>
+  <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+  <link rel='stylesheet' href='/css/common.css' />
+</head>
+
+<body>
+    <main>
+        <section>
+            <h1><%= message %></h1>
+            <% if (status.type === 'error') {%>
+                <h2><%= status.code %> <%= status.text %></h2>
+                <div><img loading="lazy" width="300" src="/images/assets/error.png" /></div>
+            <% } else if (status.type === 'success') {%>
+                <h2><%= status.code %> <%= status.text %></h2>
+                <div><img loading="lazy" width="300" src="/images/assets/success.png" /></div>
+            <% } %>
+            <a href="<%= redirect.link %>"><%= redirect.text %></a>
+        </section>
+    </main>
+</body>
+
+</html>

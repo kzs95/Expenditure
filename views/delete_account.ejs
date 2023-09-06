@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>Delete Account | Expenditure Recorder </title>
+    <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+    <link rel='stylesheet' href='/css/common.css' />
+    <link rel='stylesheet' href='/css/users.css' />
+    <script src="/js/header_component.js" defer type="module"></script>
+    <script src="/js/page_user.js" defer type="module"></script>
+</head>
+
+<body>
+    <main>
+        <expendrec-header></expendrec-header>
+        <section>
+            <h1>Delete Account</h1>
+            <p><b>Warning</b>: Deleting your account will wipe out all of your data PERMANENTLY and is NON-RECOVERABLE. Click the button below if you still wish to proceed.</p>
+            <form class="hidden-form" id="delete-form" method="POST" action="/users/delete">
+                <input type="submit" class="delete-warning" id="delete-form-button" value="Delete My Account"/>
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

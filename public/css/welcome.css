@@ -1,0 +1,24 @@
+section#home-menu {
+    border: 2px solid #2E8B57;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    gap: 1rem;
+    padding:1rem;
+    margin-block-start: 1rem;
+}
+
+section#home-menu>div#home-illus>img {
+    max-width: 100%;
+}
+
+section#home-menu>a.home-link {
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    color: #2E8B57;
+    background-color:#F0FFF0 ;
+    padding: .5rem;
+    min-width: fit-content;
+    max-width: 35%;
+}

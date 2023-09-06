@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error | Expenditure Recorder</title>
+    <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+    <link rel='stylesheet' href='/css/common.css' />
+</head>
+
+<body>
+    <main>
+        <section>
+            <h1><%= message %></h1>
+            <h2><%= error.status %></h2>
+            <div><img loading="lazy" width="300" src="/images/assets/error.png" /></div>
+            <small style="overflow-wrap: anywhere;"><%= error.stack %></small><!--pre-->
+        </section>
+    </main>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register | Expenditure Recorder</title>
+    <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+    <link rel='stylesheet' href='/css/common.css' />
+    <script src="/js/page_login_register.js" defer type="module"></script>
+</head>
+
+<body>
+    <main>
+        <section>
+            <h1>Register</h1>
+            <form name="register-form" method="POST" action="/users/register">
+                <label for="register-username">Username</label>
+                <input type="text" name="username" id="register-username" pattern="^[\w!@#$%&*'\-]+$" minlength="6" maxlength="16" required>
+                <label for="register-email">Email</label>
+                <input type="email" name="email" id="register-email" required>
+                <label for="register-password">Password</label>
+                <input type="password" name="password" id="register-password" pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%])[a-zA-Z!@#$%\d]*$" minlength="8" maxlength="12" required>
+                <div class="passwordShow">
+                    <label for="show-password">Show Password</label>
+                    <input type="checkbox" id="show-password" class="show-password">
+                </div>
+                <input type="submit" value="Register">
+            </form>
+            <div>
+                <p>Have an Account? <a href="/login">Login</a></p>
+                <ul class="form-info-text">
+                    <li><b>Username</b>: 6 to 16 Alphabet, Numbers, 9 Symbols ( _!@#$%&*'- )</li>
+                    <li><b>Password</b>: 8 - 12 Alphabets, Numbers, 5 Symbols ( !@#$% ). At least one character PER TYPE.</li>
+                </ul>
+            </div>
+            <% if (notification) {%>
+                <div class="notification-text">
+                    <p><b><%= notification.title %></b>: <%= notification.message %></p>
+                </div>
+            <% } %>
+        </section>
+    </main>
+
+
+</body>
+
+</html>

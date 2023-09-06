@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Expenditure Recorder</title>
+    <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+    <link rel='stylesheet' href='/css/common.css' />
+    <script src="/js/page_login_register.js" defer type="module"></script>
+</head>
+
+<body>
+    <main>
+        <section>
+            <h1>Login</h1>
+            <form name="login-form" method="POST" action="/users/login">
+                <label for="login-username">Username</label>
+                <input type="text" name="username" id="login-username" pattern="^[\w!@#$%&*'\-]+$" minlength="6"
+                    maxlength="16" required>
+                <label for="login-password">Password</label>
+                <input type="password" name="password" id="login-password"
+                    pattern="^(?=.*\d)(?=.*[a-zA-Z])(?=.*[!@#$%])[^\s][a-zA-Z!@#$%\d]*$" minlength="8" maxlength="12"
+                    required>
+                <div class="passwordShow">
+                    <label for="show-password">Show Password</label>
+                    <input type="checkbox" id="show-password" class="show-password">
+                </div>
+                <input type="submit" value="Login">
+            </form>
+            <div>
+                <p>Don't have an account? <a href="/register">Register</a></p>
+            </div>
+            <% if (notification) {%>
+                <div class="notification-text">
+                    <p><b><%= notification.title %></b>: <%= notification.message %></p>
+                </div>
+            <% } %>
+        </section>
+    </main>
+</body>
+
+</html>

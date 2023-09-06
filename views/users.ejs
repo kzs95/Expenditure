@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+  <title>
+    <%= username %> | Expenditure Recorder
+  </title>
+  <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+  <link rel='stylesheet' href='/css/common.css' />
+  <link rel='stylesheet' href='/css/users.css' />
+  <script src="/js/header_component.js" defer type="module"></script>
+  <script src="/js/page_users.js" defer type="module"></script>
+</head>
+
+<body>
+  <main>
+    <expendrec-header></expendrec-header>
+    <section id="user-info">
+      <h1>My Info</h1>
+      <div><span >User ID</span> - <span>
+          <%= userid %>
+        </span></div>
+      <div><span>Username</span> - <span>
+          <%= username %>
+        </span></div>
+      <div><span>Email</span> - <span>
+          <%= email %>
+        </span></div>
+    </section>
+    <section id="user-categ">
+      <h1>My Categories</h1>
+      <div id="replace-custom-category"></div>
+      <div class="userpage-click-tile"><a class="userpage-link-button" href="/users/add-category">Add Custom Categories</a></div>
+      <div class="userpage-click-tile"><a class="userpage-link-button" href="/users/edit-category">Edit Custom Categories</a></div>
+      <div class="userpage-click-tile"><a class="userpage-link-button" href="/users/delete-category">Delete Custom Categories</a></div>
+    </section>
+    <section id="user-account">
+      <h1>Account</h1>
+      <div class="userpage-click-tile"><a class="userpage-link-button" href="users/edit-details">Edit User Info</a></div>
+      <div class="userpage-click-tile"><a class="userpage-link-button" href="users/delete">Delete Account</a></div>
+      <div class="userpage-click-tile">
+        <form class="hidden-form" id="logout-form" method="POST" action="users/logout">
+          <button type="submit" class="userpage-link-button">Logout</button>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>

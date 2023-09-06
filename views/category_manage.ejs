@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=no">
+    <title>
+        <%= role %> Custom Category | Expenditure Recorder
+    </title>
+    <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
+    <link rel='stylesheet' href='/css/common.css' />
+    <link rel='stylesheet' href='/css/users.css' />
+    <script src="/js/header_component.js" defer type="module"></script>
+    <% if (role==='Edit' || role==="Delete" ) {%>
+        <script src="/js/page_custom_categ.js" defer type="module"></script>
+        <% } %>
+</head>
+
+<body>
+    <main>
+        <expendrec-header></expendrec-header>
+        <section>
+            <h1><%= role %> Custom Categories</h1>
+            <%if (role==='Add' ) {%>
+                <form name="custom-category_add" method="POST" action="/users/add-category">
+                    <label for="category_name">Category Name</label>
+                    <input type="text" id="category_name" name="category_name" pattern="^[\u0020\w]+$" maxlength="45" required />
+                    <input type="submit" value="Add Custom Category">
+                    <small class="form-info">
+                        <ul class="form-info-text">
+                            <li>45 charcters. Use alphabet, numbers,underscore, and space (U+0020) only.</li>
+                            <li>To prevent redundancy, it might be a good idea to check if an item in the standard
+                                categories already describes what you are about to add.</li>
+                        </ul>
+                    </small>
+                </form>
+            <%} else if (role==='Edit' ) {%>
+                <form name="custom_category_change" method="POST" action="/users/edit-category">
+                    <label for="custom_category_list">Select Custom Category To Rename</label>
+                    <select id="custom_category_list" name="category_name_prev" required>
+                        <option value="">-Select a Category-</option>
+                    </select>
+                    <label for="category_name_new">New Name</label>
+                    <input type="text" id="category_name_new" name="category_name_new" pattern="^[\u0020\w]+$"
+                        maxlength="45" required />
+                    <input type="submit" value="Rename Custom Category">
+                    <small class="form-info">
+                        <ul class="form-info-text">
+                            <li><b>Note</b>: Changing the name a custom category will also apply to all previous records.</li>
+                            <li>45 charcters. Use alphabet, numbers,underscore, and space (U+0020) only.</li>
+                        </ul>
+                    </small>
+                </form>
+                <% } else if (role==='Delete' ){%>
+                    <form name="custom_category_change" method="POST" action="/users/delete-category">
+                        <label for="custom_category_list">Select Custom Category To Delete</label>
+                        <select name="category_name_delete" id="custom_category_list" required>
+                            <option value="">-Select a Category-</option>
+                        </select>
+                        <p><b>Warning</b>: Deleting a custom category will also delete all
+                            spending records related to that category! It is PERMANENT and NON-RECOVERABLE.
+                            Click the button below if you still wish to proceed.
+                        </p>
+                        <input class="delete-warning" type="submit" value="Delete Custom Category">
+                    </form>
+                <% } %>
+                <% if (notification) {%>
+                    <% if (status==='Fail' ) {%>
+                        <div class="notification-text">
+                            <p><b><%= notification.title %></b>: <%= notification.message %></p>
+                        </div>
+                    <% } else if (status==='Success' ){%>
+                        <div class="notification-text-success">
+                            <p><b><%= notification.title %></b>: <%= notification.message %></p>
+                        </div>
+                    <% } %>
+                <% } %>
+        </section>
+    </main>
+</body>
+
+</html>
