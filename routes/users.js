@@ -594,18 +594,3 @@ router.post('/edit-details/change-password', async function (req, res, next) {
 });
 
 module.exports = router;
-
-//Junk
-  //SELECT record_data FROM records where JSON_SEARCH(record_data,'one','Food',NULL,'$[*].category');
-  // SELECT record_data FROM records WHERE username='kzs1995' AND JSON_CONTAINS(record_data,'{"category":"Food"}');
-  //SAME
-
-  // UPDATE records set record_data=JSON_REPLACE(record_data,'$[0].category',"Ice") WHERE username='kzs1995' AND JSON_SEARCH(record_data,'one','Ice Cream',Null,'$[*].category');
-
-  //select JSON_SEARCH(record_data,'one','Ice Cream') from records WHERE JSON_CONTAINS(record_data,'{"category":"Ice Cream"}');
-  //UPDATE records SET record_data=JSON_REPLACE(record_data,'$[0].spent',1000) WHERE record_date='2023-08-31'; //NEW EDIT!!!!!!
-
-  //NEW DELETE!!!
-  //UPDATE records SET record_data=JSON_REMOVE(record_data,'$[1]') WHERE record_date='2023-8-31';
-
-  //SELECT record_data, JSON_SEARCH(record_data,'one','Groceries',NULL,'$[*].category') AS idxStr FROM records where JSON_SEARCH(record_data,'one','Groceries',NULL,'$[*].category');
