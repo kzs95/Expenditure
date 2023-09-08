@@ -1,0 +1,47 @@
+table.col2 {
+    width: min(300px, 100%)
+}
+
+table.col3 {
+    width: min(450px, 100%)
+}
+
+table.col4 {
+    width: 100%
+}
+
+table .col_period {
+    width: 12%;
+}
+
+table .col_categ {
+    width: 25%;
+}
+
+table .col_spent {
+    width: 23%;
+}
+
+table .col_comment {
+    width: 35%;
+}
+
+th,
+td {
+    overflow-wrap: break-word;
+    word-break: break-all;
+    hyphens: auto;
+}
+
+canvas {
+    margin-block: 1rem;
+}
+
+canvas.pie {
+    max-height: 350px;
+}
+
+a#yearly-review-link{
+    color: #2E5090;
+    text-decoration: underline;
+}

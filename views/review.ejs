@@ -7,6 +7,7 @@
     <title>Expenditure Recorder</title>
     <link rel="icon" type="image/svg" href="/images/icons/favicon.svg">
     <link rel='stylesheet' href='/css/common.css' />
+    <link rel='stylesheet' href='/css/review.css' />
     <script src="/js/header_component.js" defer type="module"></script>
     <script src="/js/page_review.js" defer type="module"></script>
     <!--Chart.js-->
@@ -17,8 +18,9 @@
     <main>
         <expendrec-header></expendrec-header>
         <section id="review-form">
-            <h1>Monthly Review</h1>
-            <form name="review_form" method="GET">
+            <h1><%= reviewType %>ly Review</h1>
+            <% if (reviewType === "Month"){%>
+            <form name="review_form_month" method="POST" action="/review">
                 <label for="month">Month</label>
                 <input type="month" name="month" id="month" required>
                 <label for="category">Category</label>
@@ -27,6 +29,30 @@
                 </select>
                 <input type="submit" value="Review Spendings">
             </form>
+            <div>
+                <p>Wish to view yearly analysis? <a id="yearly-review-link" href="/review/year">Yearly Review</a></p>
+            </div>
+            <%} else {%>
+            <form name="review_form_year" method="POST" action="/review/year">
+                <label for="yearFrom">Year</label>
+                <select name="yearFrom" id="yearFrom" required>
+                    <option value="">Select a Year</option>
+                </select>
+                <label for="yearFrom">To</label>
+                <select name="yearTo" id="yearTo" required>
+                    <option value="">Select a Year</option>
+                </select>
+                <label for="category">Category</label>
+                <select name="category" id="category">
+                    <option value="All">All</option>
+                </select>
+                <div class="single-year-check">
+                    <label for="single-year">Review Single Year</label>
+                    <input type="checkbox" id="single-year">   
+                </div>
+                <input type="submit" value="Review Spendings">
+            </form>
+            <%}%>
         </section>
         <section id="review-display">
             <h1>Spendings Breakdown</h1>
@@ -48,36 +74,36 @@
             </div>
             <hr/>
             <div class="breakdown-category-day">
-                <h3>Detailed Breakdown (Day)</h3>
+                <h3>Detailed Breakdown (<%=subPeriod%>)</h3>
                 <table class="col3">
                     <thead>
                         <tr>
-                            <th>Day</th>
+                            <th><%=subPeriod%></th>
                             <th>Spent</th>
-                            <th>Comment</th>
+                            <% if (reviewType === "Month"){ %><th>Comment</th><%}%>
                         </tr>
                     </thead>
                     <tbody>
-                    <% for (const [dayDate,{spent,comment}] of Object.entries(expenditure.dayBreakdown)){%>
+                    <% for (const [period,{spent,comment}] of Object.entries(expenditure.periodBreakdown)){%>
                         <tr>
-                            <td><%= dayDate %></td>
+                            <td><%= period %></td>
                             <td><%= spent %></td>
-                            <td><%= comment %></td>
+                            <% if (reviewType === "Month"){ %><td><%= comment %></td><%}%>
                         </tr>
                     <%}%>
                     </tbody>
                 </table>
-                <canvas id="breakdown-category-day-bar"></canvas>
+                <canvas id="breakdown-category-period-bar"></canvas>
                 <%# could prevent the error highlight if assign as string, but need JSON.parse them%>
                 <script type="module">
                     const categ = '<%=category %>';
-                    const categDate = <%- JSON.stringify(Object.keys(expenditure.dayBreakdown).map((dateStr)=>dateStr.slice(-2))) %>;
-                    const categSpent = <%- JSON.stringify(Object.values(expenditure.dayBreakdown).map((recordObj)=>recordObj.spent)) %>;
-                    const day_spent_bar = document.querySelector("#breakdown-category-day-bar");
-                    new Chart(day_spent_bar,{
+                    const categPeriod = <%- JSON.stringify(Object.keys(expenditure.periodBreakdown)) %>;
+                    const categSpent = <%- JSON.stringify(Object.values(expenditure.periodBreakdown).map((recordObj)=>recordObj.spent)) %>;
+                    const period_spent_bar = document.querySelector("#breakdown-category-period-bar");
+                    new Chart(period_spent_bar,{
                         type:'bar',
                         data:{
-                            labels:categDate,
+                            labels:categPeriod,
                             datasets:[{
                                 label:categ,
                                 data:categSpent,
@@ -154,40 +180,40 @@
                 </script>
             </div>
             <hr/>
-            <div class="total-all-day">
-                <h3>Total (Each Day)</h3>
+            <div class="total-all-period">
+                <h3>Total (Each <%=subPeriod%>)</h3>
                 <table class="col2">
                     <colgroup>
-                        <col class="col_day">
+                        <col class="col_period">
                         <col class="col_spent">
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Day</th>
+                            <th><%=subPeriod%></th>
                             <th>Spent</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <% for (const [dayDate,totalSpent] of Object.entries(expenditure?.total?.day)){%>
+                    <% for (const [period,totalSpent] of Object.entries(expenditure?.total?.period)){%>
                         <tr>
-                            <td><%= dayDate %></td>
+                            <td><%= period %></td>
                             <td><%= totalSpent %></td>
                         </tr>
                     <%}%>
                     </tbody>
                 </table>
-                <canvas id="total-all-day-bar"></canvas>
+                <canvas id="total-all-period-bar"></canvas>
                 <script>
-                    const allDay = <%- JSON.stringify(Object.keys(expenditure.total.day).map((dateStr)=>dateStr.slice(-2))) %>;
-                    const allDaySpent = <%- JSON.stringify(Object.values(expenditure.total.day)) %>;
-                    const all_day_bar = document.querySelector("#total-all-day-bar");
-                    new Chart(all_day_bar,{
+                    const allPeriod = <%- JSON.stringify(Object.keys(expenditure.total.period)) %>;
+                    const allPeriodSpent = <%- JSON.stringify(Object.values(expenditure.total.period)) %>;
+                    const all_period_bar = document.querySelector("#total-all-period-bar");
+                    new Chart(all_period_bar,{
                         type:'bar',
                         data:{
-                            labels:allDay,
+                            labels:allPeriod,
                             datasets:[{
                                 label:'Total',
-                                data:allDaySpent,
+                                data:allPeriodSpent,
                                 borderWidth: 1,
                                 backgroundColor:'#D0F0C0',
                                 borderColor:'#ACE1AF'
@@ -196,7 +222,7 @@
                         options: {
                             scales: {
                                 x: {
-                                    title:{text:'Day',padding:0,display:true}
+                                    title:{text:'<%=subPeriod%>',padding:0,display:true}
                                 },
                                 y: {
                                     title:{text:'Total Spent',padding:0,display:true},
@@ -209,33 +235,33 @@
                 </script>
             </div>
             <hr/>
-            <div class="breakdown-all-categ_day">
-                <h3>Detailed Breakdown (Category - Day)</h3>
+            <div class="breakdown-all-categ_period">
+                <h3>Detailed Breakdown (Category - <%=subPeriod%>)</h3>
                 <table class="col4">
                     <colgroup>
                         <col class="col_categ">
-                        <col class="col_day">
+                        <col class="col_period">
                         <col class="col_spent">
-                        <col class="col_comment">
+                        <% if (reviewType === "Month"){ %><col class="col_comment"><%}%>
                     </colgroup>
                     <thead>
                         <tr>
                             <th>Category</th>
-                            <th>Day</th>
+                            <th><%=subPeriod%></th>
                             <th>Spent</th>
-                            <th>Comment</th>
+                            <% if (reviewType === "Month"){ %><th>Comment</th><%}%>
                         </tr>
                     </thead>
                     <tbody>
-                    <% for (const [categName,categEachDay] of Object.entries(expenditure?.categoryBreakdown)){%>
-                        <% categEachDay.forEach(({day,spent,comment},index)=>{%>
+                    <% for (const [categName,categEachPeriod] of Object.entries(expenditure?.categoryBreakdown)){%>
+                        <% categEachPeriod.forEach(({period,spent,comment},index)=>{%>
                         <tr>
                         <% if (index === 0){%>
-                            <td rowspan="<%= categEachDay.length %>"><%= categName %></td>
+                            <td rowspan="<%= categEachPeriod.length %>"><%= categName %></td>
                         <%} %>
-                            <td><%= day %></td>
+                            <td><%= period %></td>
                             <td><%= spent %></td>
-                            <td><%= comment %></td>
+                            <% if (reviewType === "Month"){ %><td><%= comment %></td><%}%>
                         </tr>
                         <%}) %>
                     <%}%>
@@ -243,33 +269,33 @@
                 </table>
             </div>
             <hr/>
-            <div class="breakdown-all-day_categ">
-                <h3>Detailed Breakdown (Day - Category)</h3>
+            <div class="breakdown-all-period_categ">
+                <h3>Detailed Breakdown (<%=subPeriod%> - Category)</h3>
                 <table class="col4">
                     <colgroup>
-                        <col class="col_day">
+                        <col class="col_period">
                         <col class="col_categ">
                         <col class="col_spent">
-                        <col class="col_comment">
+                        <% if (reviewType === "Month"){ %><col class="col_comment"><%}%>
                     </colgroup>
                     <thead>
                         <tr>
-                            <th>Day</th>
+                            <th><%=subPeriod%></th>
                             <th>Category</th>
                             <th>Spent</th>
-                            <th>Comment</th>
+                            <% if (reviewType === "Month"){ %><th>Comment</th><%}%>
                         </tr>
                     </thead>
                     <tbody>
-                    <% for (const [dayDate,recordEachDay] of Object.entries(expenditure?.dayBreakdown)){%>
-                        <% recordEachDay.forEach(({category,spent,comment},index)=>{%>
+                    <% for (const [period,recordEachPeriod] of Object.entries(expenditure?.periodBreakdown)){%>
+                        <% recordEachPeriod.forEach(({category,spent,comment},index)=>{%>
                         <tr>
                         <% if (index === 0){%>
-                            <td rowspan="<%= recordEachDay.length %>"><%= dayDate %></td>
+                            <td rowspan="<%= recordEachPeriod.length %>"><%= period %></td>
                         <%} %>
                             <td><%= category %></td>
                             <td><%= spent %></td>
-                            <td><%= comment %></td>
+                            <% if (reviewType === "Month"){ %><td><%= comment %></td><%}%>
                         </tr>
                         <%}) %>
                     <%}%>
@@ -281,27 +307,27 @@
                 <h3>Detailed Breakdown Chart</h3>
                 <canvas id="breakdown-all-bar-stack"></canvas>
                 <script>
-                    const eachDay = <%- JSON.stringify(Object.keys(expenditure.dayBreakdown).map((dateStr)=>dateStr.slice(-2))) %>;
-                    const categEachDay = '<%- JSON.stringify(Object.entries(expenditure.categoryBreakdown)) %>';
-                    const eachCategDataset = JSON.parse(categEachDay).map(([category,recordObjArr])=>{
-                        const eachDayCategSpent = eachDay.map((date)=>0);
-                        recordObjArr.forEach(({spent,day})=>{
-                            const dateIndexAmongRecordedDay = eachDay.findIndex((date)=>date===day.slice(-2));
-                            eachDayCategSpent[dateIndexAmongRecordedDay] = spent;
+                    const eachPeriod = <%- JSON.stringify(Object.keys(expenditure.periodBreakdown)) %>;
+                    const categeachPeriod = '<%- JSON.stringify(Object.entries(expenditure.categoryBreakdown)) %>';
+                    const eachCategDataset = JSON.parse(categeachPeriod).map(([category,recordObjArr])=>{
+                        const eachPeriodCategSpent = eachPeriod.map((date)=>0);
+                        recordObjArr.forEach(({spent,period})=>{
+                            const dateIndexAmongRecordedDay = eachPeriod.findIndex((date)=>date===period);
+                            eachPeriodCategSpent[dateIndexAmongRecordedDay] = spent;
                         });
-                        return {label:category,data:eachDayCategSpent}
+                        return {label:category,data:eachPeriodCategSpent}
                     });
                     const all_bar_stack = document.querySelector("#breakdown-all-bar-stack");
                     new Chart(all_bar_stack,{
                         type:'bar',
                         data:{
-                            labels:eachDay,
+                            labels:eachPeriod,
                             datasets:eachCategDataset
                         },
                         options: {
                             scales: {
                                 x: {
-                                    title:{text:'Day',padding:0,display:true},
+                                    title:{text:'<%=subPeriod%>',padding:0,display:true},
                                     stacked: true
                                 },
                                 y: {

@@ -61,54 +61,11 @@ ol {
     padding-inline-start: 2rem;
 }
 
-canvas {
-    margin-block: 1rem;
-}
-
-canvas.pie {
-    max-height: 350px;
-}
-
 table,
 td,
 th {
     border: 1px solid #00693E;
     border-collapse: collapse;
-}
-
-table.col2 {
-    width: min(300px, 100%)
-}
-
-table.col3 {
-    width: min(450px, 100%)
-}
-
-table.col4 {
-    width: 100%
-}
-
-table .col_day {
-    width: 12%;
-}
-
-table .col_categ {
-    width: 25%;
-}
-
-table .col_spent {
-    width: 23%;
-}
-
-table .col_comment {
-    width: 35%;
-}
-
-th,
-td {
-    overflow-wrap: break-word;
-    word-break: break-all;
-    hyphens: auto;
 }
 
 td,
