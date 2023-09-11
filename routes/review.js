@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router()
 const dbPool = require('./dbPoolPromise');
 
-const validMonthRegExp = /\d{4}\-\d{2}/;
-const validYearRegExp = /\d{4}/;
+const validMonthRegExp = /^\d{4}\-(?:0[1-9]|1[0-2])$/;
+const validYearRegExp = /^\d{4}$/;
 
 router.get('/', async function (req, res, next) {
     if (!req.session.userInfo) res.redirect("/");

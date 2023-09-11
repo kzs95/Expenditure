@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const dbPool = require('./dbPoolPromise');
-const validDateRegExp = /[0-9]{4}\-[0-9]{2}\-[0-9]{2}/;
+const validDateRegExp = /^[0-9]{4}\-(?:0[1-9]|1[0-2])\-(?:0[1-9]|[12][0-9]|3[01])$/;
 const validSpentRegExp = /^[0-9]+(\.\d{1,2})*$/;
 
 async function dateSpentCategCommentValidator(request) {

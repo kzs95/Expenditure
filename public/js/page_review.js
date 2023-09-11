@@ -61,7 +61,7 @@ function getMonth() {
     const today = new Date();
     const isoWithOffset = new Date(Date.now() - (today.getTimezoneOffset() * 60000)).toISOString();
     const todayDateISO = isoWithOffset.match(/\d{4}\-\d{2}(?=\-\d{2}T)/);
-    // monthReviewMonthInput.value = todayDateISO;
+    monthReviewMonthInput.value = todayDateISO;
     monthReviewMonthInput.max = todayDateISO;
     return todayDateISO;
 }

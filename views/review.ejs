@@ -22,7 +22,7 @@
             <% if (reviewType === "Month"){%>
             <form name="review_form_month" method="POST" action="/review">
                 <label for="month">Month</label>
-                <input type="month" name="month" id="month" required>
+                <input type="month" name="month" id="month" placeholder="e.g 2022-01" pattern="^\d{4}\-[01][0-9]$" required>
                 <label for="category">Category</label>
                 <select name="category" id="category">
                     <option value="All">All</option>
